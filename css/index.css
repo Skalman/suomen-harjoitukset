@@ -1,0 +1,138 @@
+/* generic */
+	html, body {
+		margin: 0;
+		padding: 0;
+		font: 100%/1.5 Arial, sans-serif;
+	}
+
+	[hidden] {
+		display: none;
+	}
+
+	.clearfix {
+		clear: both;
+	}
+
+/* screen */
+	.screen {
+		display: none;
+	}
+	.screen.active {
+		display: block;
+	}
+
+	#init {
+		padding: 10em;
+		text-align: center;
+	}
+		#init button {
+			font-weight: bold;
+			font-size: 1.5em;
+			padding: 0.5em 2em;
+		}
+
+	#plural-partitive .question,
+	#plural-partitive .answer,
+	#plural-partitive .correct-answer-w-w,
+	#plural-partitive .continue-w {
+		margin-top: 1em;
+		width: 50%;
+		float: left;
+	}
+
+	#plural-partitive .correct-answer-w-w {
+		clear: both;
+	}
+
+	@media only screen and (max-width:600px) {
+		#init {
+			padding: 0.5em;
+		}
+
+		#plural-partitive .question,
+		#plural-partitive .answer,
+		#plural-partitive .correct-answer-w-w,
+		#plural-partitive .continue-w {
+			width: auto;
+			float: none;
+			margin: 0.2em;
+		}
+	}
+
+
+/* plural-partitive */
+	.instructions {
+		padding: 1em;
+		color: #666;
+		font-style: italic;
+	}
+
+	.word,
+	input {
+		font-weight: bold;
+		font-size: 1.3em;
+		padding: 0.3em;
+	}
+	.word {
+		padding-left: 3em;
+	}
+	.answer {
+		position: relative;
+	}
+
+	.loading {
+		font-style: italic;
+		padding: 0.5em;
+		clear: both;
+	}
+
+	.correct-answer-w {
+		padding: 0 1em;
+	}
+		.correct-answer {
+			padding: 0.3em;
+			border: 1px solid #ccc;
+			margin: 0 1.5em;
+			font-weight: bold;
+		}
+
+	.result {
+		padding: 0.5em 0 1em 0;
+	}
+
+	.correct,
+	.incorrect {
+		display: inline;
+		background: rgba(0, 0, 0, 0.5);
+		color: #fff;
+		padding: 0.3em 0.6em;
+	}
+
+	.answer-correct .input {
+		background: #7f7;
+	}
+	.answer-incorrect .input {
+		background: #f77;
+	}
+
+	.continue {
+		padding: 0.5em;
+	}
+
+	.loading,
+	.correct-answer-w-w,
+	.continue-w,
+	.correct,
+	.incorrect {
+		display: none;
+	}
+	.answered:not(.retrieved-answer) .loading,
+	.answered .correct-answer-w-w,
+	.answered.retrieved-answer .continue-w {
+		display: block;
+	}
+	.answer-correct .correct,
+	.answer-incorrect .incorrect {
+		display: inline;
+	}
+

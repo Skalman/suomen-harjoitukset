@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fi">
+	<head>
+		<meta charset="utf-8" />
+		<title>Suomenkielen harjoitukset: Monikon partitiivi</title>
+
+		<script src="js/lib/jquery.min.js"></script>
+		<script src="js/lib/q.min.js"></script>
+		<script src="js/lib/underscore-min.js"></script>
+
+		<script src="js/mediawiki.js"></script>
+		<script src="js/screen.js"></script>
+		<script src="js/plural-partitive.js"></script>
+
+		<!-- optimize for mobile -->
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="css/index.css" />
+	</head>
+	<body>
+		<div id="init" class="screen active">
+			<!--[if lt IE 9]>
+				<p>This site might not work as expected in Internet Explorer 8 and below.</p>
+			<![endif]-->
+
+			<button id="plural-partitive-start">Aloita monikon partitiivin harjoituksia</button>
+		</div>
+
+		<div id="plural-partitive" class="screen">
+			<form>
+				<div class="instructions">
+					Kirjoita sanan monikon partitiivi
+				</div>
+				<div class="input">
+					<div class="question">
+						<div class="word"></div>
+					</div>
+					<div class="answer">
+						<input />
+						<div class="result">
+							<div class="correct">✓ Oikein</div>
+							<div class="incorrect">✗ Väärin</div>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+
+
+				<div class="loading">Ladataan...</div>
+
+				<div class="correct-answer-w-w">
+					<div class="correct-answer-w">
+						Wikisanakirjasta: <span class="correct-answer"></span>
+					</div>
+				</div>
+
+				<div class="continue-w">
+					<button class="continue" type="submit">Jatka ❯</button>
+				</div>
+				
+
+			</form>
+		</div>
+
+	</body>
+</html>
