@@ -12,15 +12,13 @@ function plural_partitive_start() {
 
 
 	Q.fcall( $.ajax, {
-		url: 'resources/plural-partitive.json?1',
+		url: 'resources/plural-partitive.json',
 		dataType: 'json'
 	} )
 	.then( function ( data ) {
 		var words = _.map( data.words, _.identity );
 		words = words.concat.apply( [], words );
 		words = _.shuffle( words );
-
-		// lakka
 
 		return words;
 	} )

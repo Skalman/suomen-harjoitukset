@@ -30,7 +30,7 @@ function mediawiki_get_category( wiki_base, category, limit ) {
 		limit = 1000;
 	}
 
-	console.log( 'mediawiki_get_category' );
+	// console.log( 'mediawiki_get_category' );
 
 	var deferred = Q.defer();
 	var res = [];
