@@ -3,7 +3,10 @@
 $( function () {
 	$( '#plural-partitive-start' ).on( 'click', function () {
 		switch_screen( 'plural-partitive' );
-		plural_partitive_start();
+		plural_partitive_start()
+			.then( function() {
+				switch_screen( 'init' );
+			} );
 	} );
 } );
 
@@ -11,7 +14,7 @@ function plural_partitive_start() {
 	console.log( 'plural_partitive_start' );
 
 
-	Q.fcall( $.ajax, {
+	return Q.fcall( $.ajax, {
 		url: 'resources/plural-partitive.json',
 		dataType: 'json'
 	} )
@@ -36,6 +39,7 @@ function plural_partitive_exercise( words ) {
 		promise = deferred.promise;
 
 	console.log( 'Exercise start' );
+	$( '#plural-partitive .progress-total' ).text( words.length );
 
 	var stats = {
 		questions: words.map( function ( word ) {
@@ -69,8 +73,9 @@ function plural_partitive_do_one( stats, question_index ) {
 		return $parent.find( selector );
 	}
 
-	$p( '.word' ).text( q.word );
 	$p( 'form' ).on( 'submit', submitted );
+	$p( '.word' ).text( q.word );
+	$p( '.progress-current' ).text( question_index + 1 );
 	$p( 'input' ).focus();
 
 	mediawiki_get_page_html( wiki_base, q.word )
@@ -81,7 +86,7 @@ function plural_partitive_do_one( stats, question_index ) {
 		var a = q.answer = plural_partitive_get_from_html( html );
 		$parent.addClass( 'retrieved-answer' );
 		$p( '.correct-answer' ).text( a.join( ', ' ) );
-		console.log( a.length === 1 ? 'Retrieved answer' : 'Retrieved ' + a.length + ' answers' );
+		console.log( (a.length === 1 ? 'Retrieved answer' : 'Retrieved ' + a.length + ' answers') + ' from Wiktionary' );
 		show_ans();
 	}
 

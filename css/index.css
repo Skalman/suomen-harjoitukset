@@ -31,6 +31,8 @@
 			padding: 0.5em 2em;
 		}
 
+	#plural-partitive .instructions-w,
+	#plural-partitive .progress,
 	#plural-partitive .question,
 	#plural-partitive .answer,
 	#plural-partitive .correct-answer-w-w,
@@ -40,6 +42,7 @@
 		float: left;
 	}
 
+	#plural-partitive .question,
 	#plural-partitive .correct-answer-w-w {
 		clear: both;
 	}
@@ -61,8 +64,17 @@
 
 
 /* plural-partitive */
+	.top {
+		padding: 1em 0;
+	}
+
 	.instructions {
-		padding: 1em;
+		padding: 0 1em;
+		color: #666;
+		font-style: italic;
+	}
+
+	.progress {
 		color: #666;
 		font-style: italic;
 	}
