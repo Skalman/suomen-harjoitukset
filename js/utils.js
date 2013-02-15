@@ -1,7 +1,3 @@
-/**
- * Nothing yet.
- */
-
 'use strict';
 
 if ( typeof console === 'undefined' ) {

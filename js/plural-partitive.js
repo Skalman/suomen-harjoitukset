@@ -60,7 +60,6 @@ function plural_partitive_exercise( words ) {
 }
 
 function plural_partitive_do_one( stats, question_index ) {
-	var deferred = Q.defer();
 	var wiki_base = 'https://en.wiktionary.org/w/';
 
 	var q = stats.questions[question_index];
@@ -70,59 +69,53 @@ function plural_partitive_do_one( stats, question_index ) {
 		return $parent.find( selector );
 	}
 
-	$p( 'form' ).on( 'submit', submitted );
 	$p( '.word' ).text( q.word );
 	$p( '.progress-current' ).text( question_index + 1 );
 	$p( 'input' ).focus();
 
-	mediawiki_get_page_html( wiki_base, q.word )
-		.then( got_html );
-
-
-	function got_html( html ) {
-		var a = q.answer = plural_partitive_get_from_html( html );
-		$parent.addClass( 'retrieved-answer' );
-		$p( '.correct-answer' ).text( a.join( ', ' ) );
-		console.log( (a.length === 1 ? 'Retrieved answer' : 'Retrieved ' + a.length + ' answers') + ' from Wiktionary' );
-		show_ans();
-	}
-
-	function submitted( e ) {
+	return Q.all( [
+		// when the form is submitted
+		$p( 'form' ).when( 'submit', function immediate_inspector( e ) {
 			e.preventDefault();
-			q.user_answer = $p( 'input' ).val().toLowerCase();
-
-			// ignore empty submissions
-			if ( q.user_answer ) {
-				$parent.addClass( 'answered' );
-				$( this ).off( 'submit', submitted );
-				console.log( 'User submitted:', q.user_answer );
-				show_ans();
+			// don't resolve empty submissions
+			if ( $p( 'input' ).val() === '' ) {
+				e.notResolved();
 			}
-		}
+		} ).then( function ( e ) {
+			$parent.addClass( 'answered' );
+			var a = q.user_answer = $p( 'input' ).val().toLowerCase();
+			console.log( 'User submitted:', q.user_answer );
+			return a;
+		} ),
 
-	function show_ans() {
-		if ( q.answer && q.user_answer ) {
-			if ( _.indexOf( q.answer, q.user_answer ) !== -1 ) {
-				$parent.addClass( 'answer-correct' );
-			} else {
-				$parent.addClass( 'answer-incorrect' );
-			}
-			$p( 'form' ).on( 'submit', next );
-			$p( 'input' ).attr( 'readonly', '' );
-			$p( 'button' ).focus();
-		}
-	}
+		// and when we got the HTML from Wiktionary
+		mediawiki_get_page_html( wiki_base, q.word )
+		.then( function got_html( html ) {
+			$parent.addClass( 'retrieved-answer' );
+			var a = q.answer = plural_partitive_get_from_html( html );
+			$p( '.correct-answer' ).text( a.join( ', ' ) );
+			console.log( 'Retrieved ' + (a.length===1 ? 'answer' : a.length+' answers') + ' from Wiktionary' );
+			return a;
+		} )
 
-	function next( e ) {
-		e.preventDefault();
+	// then show the result
+	] ).spread( function ( user_answer, answer ) {
+		$parent.addClass(
+			_.indexOf( q.answer, q.user_answer ) !== -1 ?
+			'answer-correct' :
+			'answer-incorrect' );
+
+		$p( 'input' ).attr( 'readonly', '' );
+		$p( 'button' ).focus();
+
+		return $p( 'form' ).when( 'submit', function immediate_inspector( e ) {
+			e.preventDefault();
+		} );
+	} ).then( function () {
 		$parent.removeClass( 'retrieved-answer answered answer-correct answer-incorrect' );
-		$( this ).off( 'submit', next );
 		$p( 'input' ).removeAttr( 'readonly' ).val( '' );
 		$p( '.correct-answer' ).text( '' );
-		deferred.resolve( stats );
-	}
-
-	return deferred.promise;
+	} );
 }
 
 function wiktionary_get_finnish_section( html ) {
