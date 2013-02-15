@@ -92,7 +92,7 @@ function plural_partitive_do_one( stats, question_index ) {
 
 	function submitted( e ) {
 			e.preventDefault();
-			q.user_answer = $p( 'input' ).val();
+			q.user_answer = $p( 'input' ).val().toLowerCase();
 
 			// ignore empty submissions
 			if ( q.user_answer ) {
