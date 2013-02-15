@@ -11,9 +11,6 @@ $( function () {
 } );
 
 function plural_partitive_start() {
-	console.log( 'plural_partitive_start' );
-
-
 	return Q.fcall( $.ajax, {
 		url: 'resources/plural-partitive.json',
 		dataType: 'json'
@@ -47,7 +44,7 @@ function plural_partitive_exercise( words ) {
 				word: word,
 				answer: undefined,
 				user_answer: undefined
-			}
+			};
 		} )
 	};
 
@@ -135,7 +132,7 @@ function wiktionary_get_finnish_section( html ) {
 		html = html.substr( start.index + start[0].length );
 		end = /<h2/.exec( html );
 		if ( end ) {
-			html = html.substr( 0, end.index )
+			html = html.substr( 0, end.index );
 		}
 		return html;
 	} else {
