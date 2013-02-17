@@ -2,11 +2,18 @@
 
 $( function () {
 	$( '#plural-partitive-start' ).on( 'click', function () {
-		switch_screen( 'plural-partitive' );
 		plural_partitive_start()
 			.then( function() {
 				switch_screen( 'init' );
+				$( '#plural-partitive-start' ).focus();
 			} );
+	} );
+
+	// Using promises might not be optimal for UI: a user may interact with the
+	// UI in the short time period between a UI promise is resolved and the
+	// list
+	$( 'form' ).on( 'submit', function ( e ) {
+		e.preventDefault();
 	} );
 } );
 
@@ -37,21 +44,64 @@ function plural_partitive_exercise( words ) {
 
 	console.log( 'Exercise start' );
 	$( '#plural-partitive .progress-total' ).text( words.length );
+	switch_screen( 'plural-partitive' );
 
 	var stats = {
-		questions: words.map( function ( word ) {
+		questions: _.map( words, function ( word ) {
 			return {
 				word: word,
 				answer: undefined,
-				user_answer: undefined
+				user_answer: undefined,
+				is_correct: undefined
 			};
-		} )
+		} ),
+		correct_count: 0
 	};
 
 	_.each( stats.questions, function ( question, i ) {
 		promise = promise.then( function () {
 			return plural_partitive_do_one( stats, i );
 		} );
+	} );
+	promise = promise
+	.then( function () {
+		var deferred = Q.defer();
+
+		var $results = $( '#plural-partitive-results' );
+		$results.html( render_template( 'plural-partitive-results', stats ) );
+		switch_screen( 'plural-partitive-results' );
+
+		// the template should take care of showing the most relevant button first
+		$results.find( 'button:visible' ).first().focus();
+
+		return $results.find( '.quit' )
+			.when( 'click', null, 'quit' )
+			.orWhen( $results.find( '.redo-all' ),
+				'click', null, 'redo-all' )
+			.orWhen( $results.find( '.redo-incorrect' ),
+				'click', null, 'redo-incorrect' )
+			.then( function ( e ) {
+				return e.data;
+			} );
+	} )
+	.then( function ( button ) {
+		if ( button === 'redo-all' ) {
+			console.log( 'Redo all questions' );
+			return plural_partitive_exercise( words );
+		} else if ( button === 'redo-incorrect' ) {
+			console.log( 'Redo incorrectly answered questions' );
+			var incorrect_words = _.chain( stats.questions )
+				.map( function ( question ) {
+					// return only incorrectly or unanswered questions
+					return !question.is_correct && question.word;
+				} )
+				.compact()
+				.shuffle()
+				.value();
+			return plural_partitive_exercise( incorrect_words );
+		} else if ( button === 'quit' ) {
+			// do nothing, just don't continue
+		}
 	} );
 
 	deferred.resolve( stats );
@@ -100,10 +150,11 @@ function plural_partitive_do_one( stats, question_index ) {
 
 	// then show the result
 	] ).spread( function ( user_answer, answer ) {
-		$parent.addClass(
-			_.indexOf( q.answer, q.user_answer ) !== -1 ?
-			'answer-correct' :
-			'answer-incorrect' );
+		q.is_correct = _.indexOf( q.answer, q.user_answer ) !== -1;
+		$parent.addClass( q.is_correct ? 'answer-correct' : 'answer-incorrect' );
+		if ( q.is_correct ) {
+			stats.correct_count++;
+		}
 
 		$p( 'input' ).attr( 'readonly', '' );
 		$p( 'button' ).focus();

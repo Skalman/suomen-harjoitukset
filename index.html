@@ -72,5 +72,57 @@
 			</form>
 		</div>
 
+		<div id="plural-partitive-results" class="screen"></div>
+
+<script id="tpl-plural-partitive-results" type="text/tpl-underscore" data-variable="stats">
+<% var incorrect_count = stats.questions.length - stats.correct_count; %>
+<p hidden class="main-result">
+	<%- stats.correct_count + '/' + stats.questions.length %>
+	<%- stats.correct_count === 1 ? 'vastaus' : 'vastausta' %> oikein
+</p>
+
+<p>
+	<% if ( incorrect_count ) {
+		%><button class="redo-incorrect">↻
+			<%- incorrect_count === 1 ?
+				'Tee väärin mennyt harjoitus uudestaan' :
+				'Tee väärin menneet harjoitukset uudestaan' %>
+		</button><%
+	} %>
+	<button class="quit">× Lopeta</button>
+	<button class="redo-all"><span>↻</span> Tee kaikki uudestaan</button>
+</p>
+
+<ul>
+	<li>
+		<div class="question">
+			<h3>
+				Kysymykset
+				<span class="total">(<%= stats.questions.length %>)</span>
+			</h3>
+		</div>
+		<div class="user-answer">
+			<h3>
+				Vastauksisi
+				<span class="total-correct">(<%= stats.correct_count %> oikein)</span>
+			</h3>
+		</div>
+	</li>
+	<% _.each( stats.questions, function ( question ) {
+		%>
+			<li class="<%= question.is_correct ? 'correct' : 'incorrect' %>">
+				<div class="question">
+					<span class="base-form"><%- question.word %></span> <br />
+					<span class="real-answer"><%- question.answer.join( ', ' ) %></span>
+				</div>
+				<div class="user-answer">
+					<span><%- question.user_answer %></span>
+				</div>
+			</li>
+		<%
+	} ) %>
+</ul>
+</script>
+
 	</body>
 </html>

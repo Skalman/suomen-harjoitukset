@@ -1,151 +1,161 @@
-/* generic */
-	html, body {
-		margin: 0;
-		padding: 0;
-		font: 100%/1.5 Arial, sans-serif;
-	}
+@charset "UTF-8";
+html, body {
+  margin: 0;
+  padding: 0;
+  font: 100%/1.5 Arial, sans-serif; }
 
-	[hidden] {
-		display: none;
-	}
+[hidden] {
+  display: none; }
 
-	.clearfix {
-		clear: both;
-	}
+.clearfix {
+  clear: both; }
 
-/* screen */
-	.screen {
-		display: none;
-	}
-	.screen.active {
-		display: block;
-	}
+.screen {
+  display: none; }
 
-	#init {
-		padding: 10em;
-		text-align: center;
-	}
-		#init button {
-			font-weight: bold;
-			font-size: 1.5em;
-			padding: 0.5em 2em;
-		}
+.screen.active {
+  display: block; }
 
-	#plural-partitive .instructions-w,
-	#plural-partitive .progress,
-	#plural-partitive .question,
-	#plural-partitive .answer,
-	#plural-partitive .correct-answer-w-w,
-	#plural-partitive .continue-w {
-		margin-top: 1em;
-		width: 50%;
-		float: left;
-	}
+#init {
+  padding: 10em;
+  text-align: center; }
+  #init button {
+    font-weight: bold;
+    font-size: 1.5em;
+    padding: 0.5em 2em; }
 
-	#plural-partitive .question,
-	#plural-partitive .correct-answer-w-w {
-		clear: both;
-	}
+#plural-partitive .instructions-w,
+#plural-partitive .progress,
+#plural-partitive .question,
+#plural-partitive .answer,
+#plural-partitive .correct-answer-w-w,
+#plural-partitive .continue-w {
+  margin-top: 1em;
+  width: 50%;
+  float: left; }
+#plural-partitive .question,
+#plural-partitive .correct-answer-w-w {
+  clear: both; }
 
-	@media only screen and (max-width:600px) {
-		#init {
-			padding: 0.5em;
-		}
+@media only screen and (max-width:600px) {
+  #init {
+    padding: 0.5em; }
 
-		#plural-partitive .question,
-		#plural-partitive .answer,
-		#plural-partitive .correct-answer-w-w,
-		#plural-partitive .continue-w {
-			width: auto;
-			float: none;
-			margin: 0.2em;
-		}
-	}
+  #plural-partitive .question,
+  #plural-partitive .answer,
+  #plural-partitive .correct-answer-w-w,
+  #plural-partitive .continue-w {
+    width: auto;
+    float: none;
+    margin: 0.2em; } }
+#plural-partitive .top {
+  padding: 1em 0; }
+#plural-partitive .instructions {
+  padding: 0 1em;
+  color: #666;
+  font-style: italic; }
+#plural-partitive .progress {
+  color: #666;
+  font-style: italic; }
+#plural-partitive .word,
+#plural-partitive input {
+  font-weight: bold;
+  font-size: 1.3em;
+  padding: 0.3em; }
+#plural-partitive .word {
+  padding-left: 3em; }
+#plural-partitive .answer {
+  position: relative; }
+#plural-partitive .loading {
+  font-style: italic;
+  padding: 0.5em;
+  clear: both; }
+#plural-partitive .correct-answer-w {
+  padding: 0 1em; }
+#plural-partitive .correct-answer {
+  padding: 0.3em;
+  border: 1px solid #ccc;
+  margin: 0 1.5em;
+  font-weight: bold; }
+#plural-partitive .result {
+  padding: 0.5em 0 1em 0; }
+#plural-partitive .correct,
+#plural-partitive .incorrect {
+  display: inline;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 0.3em 0.6em; }
+#plural-partitive.answer-correct .input {
+  background: #7f7; }
+#plural-partitive.answer-incorrect .input {
+  background: #f77; }
+#plural-partitive .continue {
+  padding: 0.5em; }
+#plural-partitive.answered .check,
+#plural-partitive .loading,
+#plural-partitive .correct-answer-w-w,
+#plural-partitive .continue-w,
+#plural-partitive .correct,
+#plural-partitive .incorrect {
+  display: none; }
+#plural-partitive.answered:not(.retrieved-answer) .loading, #plural-partitive.answered .correct-answer-w-w, #plural-partitive.answered.retrieved-answer .continue-w {
+  display: block; }
+#plural-partitive.answer-correct .correct, #plural-partitive.answer-incorrect .incorrect {
+  display: inline; }
 
-
-/* plural-partitive */
-	.top {
-		padding: 1em 0;
-	}
-
-	.instructions {
-		padding: 0 1em;
-		color: #666;
-		font-style: italic;
-	}
-
-	.progress {
-		color: #666;
-		font-style: italic;
-	}
-
-	.word,
-	input {
-		font-weight: bold;
-		font-size: 1.3em;
-		padding: 0.3em;
-	}
-	.word {
-		padding-left: 3em;
-	}
-	.answer {
-		position: relative;
-	}
-
-	.loading {
-		font-style: italic;
-		padding: 0.5em;
-		clear: both;
-	}
-
-	.correct-answer-w {
-		padding: 0 1em;
-	}
-		.correct-answer {
-			padding: 0.3em;
-			border: 1px solid #ccc;
-			margin: 0 1.5em;
-			font-weight: bold;
-		}
-
-	.result {
-		padding: 0.5em 0 1em 0;
-	}
-
-	.correct,
-	.incorrect {
-		display: inline;
-		background: rgba(0, 0, 0, 0.5);
-		color: #fff;
-		padding: 0.3em 0.6em;
-	}
-
-	.answer-correct .input {
-		background: #7f7;
-	}
-	.answer-incorrect .input {
-		background: #f77;
-	}
-
-	.continue {
-		padding: 0.5em;
-	}
-
-	.answered .check,
-	.loading,
-	.correct-answer-w-w,
-	.continue-w,
-	.correct,
-	.incorrect {
-		display: none;
-	}
-	.answered:not(.retrieved-answer) .loading,
-	.answered .correct-answer-w-w,
-	.answered.retrieved-answer .continue-w {
-		display: block;
-	}
-	.answer-correct .correct,
-	.answer-incorrect .incorrect {
-		display: inline;
-	}
-
+#plural-partitive-results .main-result {
+  margin: 0.5em;
+  padding: 0.3em 1em;
+  background: #bdf;
+  border: 1px solid #69f;
+  border-radius: 1em;
+  font-weight: bold; }
+#plural-partitive-results ul, #plural-partitive-results li {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+#plural-partitive-results li {
+  padding: 0.5em 0 0.5em 1em;
+  border-left: 0.5em solid transparent; }
+#plural-partitive-results h3 {
+  font-size: 1.2em;
+  margin: 0; }
+  #plural-partitive-results h3 span {
+    font-weight: normal;
+    font-size: 0.833em; }
+#plural-partitive-results .redo-all span {
+  text-shadow: -0.3em 0.2em 0 rgba(0, 0, 0, 0.5);
+  padding-left: 0.3em; }
+#plural-partitive-results .user-answer span {
+  border: 1px solid transparent;
+  padding: 0.25em 0.5em;
+  border-radius: 1em; }
+  #plural-partitive-results .user-answer span::before {
+    display: inline-block;
+    font-size: 1.5em;
+    vertical-align: middle; }
+#plural-partitive-results .base-form {
+  font-weight: bold; }
+#plural-partitive-results .incorrect {
+  border-color: #c00; }
+  #plural-partitive-results .incorrect .real-answer {
+    border-bottom: 2px solid #090; }
+  #plural-partitive-results .incorrect .user-answer span {
+    background: #fdd;
+    border-color: #f66; }
+    #plural-partitive-results .incorrect .user-answer span::before {
+      color: #c00;
+      content: "✗"; }
+#plural-partitive-results .correct .user-answer span {
+  background: #dfd;
+  border-color: #bfb; }
+  #plural-partitive-results .correct .user-answer span::before {
+    color: #090;
+    content: "✓"; }
+#plural-partitive-results .question,
+#plural-partitive-results .user-answer {
+  display: inline-block;
+  vertical-align: top; }
+#plural-partitive-results .question {
+  width: 10em;
+  max-width: 100%; }
