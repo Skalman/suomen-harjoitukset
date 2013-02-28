@@ -29,14 +29,25 @@
 		padding: 10em;
 		text-align: center;
 
+		table {
+			margin: 0 auto;
+		}
+
 		button {
 			font-weight: bold;
 			font-size: 1.5em;
-			padding: 0.5em 2em;
+			padding: 0.5em 1em;
+			min-width: 10em;
+
+			small {
+				font-size: 0.7em;
+				font-weight: normal;
+				display: block;
+			}
 		}
 	}
 		
-	#plural-partitive {
+	#inflections {
 		.instructions-w,
 		.progress,
 		.question,
@@ -59,7 +70,7 @@
 			padding: 0.5em;
 		}
 
-		#plural-partitive {
+		#inflections {
 			.question,
 			.answer,
 			.correct-answer-w-w,
@@ -73,8 +84,8 @@
 
 
 //
-// plural-partitive
-#plural-partitive {
+// inflections
+#inflections {
 
 	.top {
 		padding: 1em 0;
@@ -164,9 +175,9 @@
 
 
 //
-// plural-partitive-results
+// inflections-results
 
-#plural-partitive-results {
+#inflections-results {
 	.main-result {
 		margin: 0.5em;
 		padding: 0.3em 1em;

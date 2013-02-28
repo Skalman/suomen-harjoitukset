@@ -13,7 +13,7 @@
 		<script src="js/utils.js"></script>
 		<script src="js/mediawiki.js"></script>
 		<script src="js/screen.js"></script>
-		<script src="js/plural-partitive.js"></script>
+		<script src="js/inflections.js"></script>
 
 		<!-- optimize for mobile -->
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,16 +25,27 @@
 				<p>This site might not work as expected in Internet Explorer 8 and below.</p>
 			<![endif]-->
 
-			<button id="plural-partitive-start">Aloita monikon partitiivin harjoituksia</button>
+			<p>
+				Aloita harjoituksia:
+			</p>
+
+			<table>
+				<tr>
+					<td><button class="start" data-form="singular-partitive">sanaa <small>yksikön partitiivin</small></button></td>
+					<td><button class="start" data-form="plural-partitive">sanoja <small>monikon partitiivin</small></button></td>
+				</tr>
+				<tr>
+					<td><button class="start" data-form="singular-illative">sanaan <small>yksikön illatiivin</small></button></td>
+					<td><button class="start" data-form="plural-illative">sanoihin <small>monikon illatiivin</small></button></td>
+				</tr>
+			</table>
 		</div>
 
-		<div id="plural-partitive" class="screen">
+		<div id="inflections" class="screen">
 			<form>
 				<div>
 					<div class="instructions-w">
-						<div class="instructions">
-							Kirjoita sanan monikon partitiivi
-						</div>
+						<div class="instructions"></div>
 					</div>
 					<div class="progress">
 						<span class="progress-current"></span> / <span class="progress-total"></span>
@@ -72,9 +83,9 @@
 			</form>
 		</div>
 
-		<div id="plural-partitive-results" class="screen"></div>
+		<div id="inflections-results" class="screen"></div>
 
-<script id="tpl-plural-partitive-results" type="text/tpl-underscore" data-variable="stats">
+<script id="tpl-inflections-results" type="text/tpl-underscore" data-variable="stats">
 <% var incorrect_count = stats.questions.length - stats.correct_count; %>
 <p hidden class="main-result">
 	<%- stats.correct_count + '/' + stats.questions.length %>

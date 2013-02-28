@@ -1,11 +1,29 @@
 'use strict';
 
+var strings = {
+	'singular-partitive': {
+		instructions: 'Kirjoita sanan yksikön partitiivi'
+	},
+	'plural-partitive': {
+		instructions: 'Kirjoita sanan monikon partitiivi'
+	},
+	'singular-illative': {
+		instructions: 'Kirjoita sanan yksikön illatiivi'
+	},
+	'plural-illative': {
+		instructions: 'Kirjoita sanan monikon illatiivi'
+	}
+};
+
 $( function () {
-	$( '#plural-partitive-start' ).on( 'click', function () {
-		plural_partitive_start()
+	$( '.start' ).on( 'click', function () {
+		var $this = $(this);
+		var form = $this.data('form');
+		console.log( 'Start', form );
+		inflections_start( form )
 			.then( function() {
 				switch_screen( 'init' );
-				$( '#plural-partitive-start' ).focus();
+				$this.focus();
 			} );
 	} );
 
@@ -17,9 +35,9 @@ $( function () {
 	} );
 } );
 
-function plural_partitive_start() {
+function inflections_start( form ) {
 	return Q.fcall( $.ajax, {
-		url: 'resources/plural-partitive.json',
+		url: 'resources/words.json',
 		dataType: 'json'
 	} )
 	.then( function ( data ) {
@@ -29,7 +47,9 @@ function plural_partitive_start() {
 
 		return words;
 	} )
-	.then( plural_partitive_exercise )
+	.then( function ( words ) {
+		return inflections_exercise( form, words )
+	} )
 	.then( function ( stats ) {
 		console.log( 'Exercise done' );
 	} )
@@ -38,13 +58,16 @@ function plural_partitive_start() {
 	} );
 }
 
-function plural_partitive_exercise( words ) {
+function inflections_exercise( form, words ) {
 	var deferred = Q.defer(),
 		promise = deferred.promise;
 
 	console.log( 'Exercise start' );
-	$( '#plural-partitive .progress-total' ).text( words.length );
-	switch_screen( 'plural-partitive' );
+
+	$( '#inflections .instructions' ).text( strings[form].instructions );
+	$( '#inflections .progress-total' ).text( words.length );
+
+	switch_screen( 'inflections' );
 
 	var stats = {
 		questions: _.map( words, function ( word ) {
@@ -60,16 +83,16 @@ function plural_partitive_exercise( words ) {
 
 	_.each( stats.questions, function ( question, i ) {
 		promise = promise.then( function () {
-			return plural_partitive_do_one( stats, i );
+			return inflections_do_one( form, stats, i );
 		} );
 	} );
 	promise = promise
 	.then( function () {
 		var deferred = Q.defer();
 
-		var $results = $( '#plural-partitive-results' );
-		$results.html( render_template( 'plural-partitive-results', stats ) );
-		switch_screen( 'plural-partitive-results' );
+		var $results = $( '#inflections-results' );
+		$results.html( render_template( 'inflections-results', stats ) );
+		switch_screen( 'inflections-results' );
 
 		// the template should take care of showing the most relevant button first
 		$results.find( 'button:visible' ).first().focus();
@@ -87,7 +110,7 @@ function plural_partitive_exercise( words ) {
 	.then( function ( button ) {
 		if ( button === 'redo-all' ) {
 			console.log( 'Redo all questions' );
-			return plural_partitive_exercise( words );
+			return inflections_exercise( form, words );
 		} else if ( button === 'redo-incorrect' ) {
 			console.log( 'Redo incorrectly answered questions' );
 			var incorrect_words = _.chain( stats.questions )
@@ -98,7 +121,7 @@ function plural_partitive_exercise( words ) {
 				.compact()
 				.shuffle()
 				.value();
-			return plural_partitive_exercise( incorrect_words );
+			return inflections_exercise( form, incorrect_words );
 		} else if ( button === 'quit' ) {
 			// do nothing, just don't continue
 		}
@@ -109,12 +132,12 @@ function plural_partitive_exercise( words ) {
 	return promise;
 }
 
-function plural_partitive_do_one( stats, question_index ) {
+function inflections_do_one( form, stats, question_index ) {
 	var wiki_base = 'https://en.wiktionary.org/w/';
 
 	var q = stats.questions[question_index];
 
-	var $parent = $( '#plural-partitive' );
+	var $parent = $( '#inflections' );
 	function $p( selector ) {
 		return $parent.find( selector );
 	}
@@ -142,7 +165,7 @@ function plural_partitive_do_one( stats, question_index ) {
 		mediawiki_get_page_html( wiki_base, q.word )
 		.then( function got_html( html ) {
 			$parent.addClass( 'retrieved-answer' );
-			var a = q.answer = plural_partitive_get_from_html( html );
+			var a = q.answer = inflection_get_from_html( form, html );
 			$p( '.correct-answer' ).text( a.join( ', ' ) );
 			console.log( 'Retrieved ' + (a.length===1 ? 'answer' : a.length+' answers') + ' from Wiktionary' );
 			return a;
@@ -185,18 +208,27 @@ function wiktionary_get_finnish_section( html ) {
 	}
 }
 
-function plural_partitive_get_from_html( html ) {
+function inflection_get_from_html( form, html ) {
+	var kase, number;
+	if ( /^plural\-/.test(form) ) {
+		kase = form.substr( 'plural-'.length );
+		number = 'plural';
+	} else if ( /^singular\-/.test(form) ) {
+		kase = form.substr( 'singular-'.length );
+		number = 'singular';
+	}
+
 	html = wiktionary_get_finnish_section( html );
 	var $cell = $($.parseHTML( '<div>' + html + '</div>' )[0])
 
 		// find the <tr> containing partitive
 		.find( 'table.inflection-table tr' )
 		.filter( function () {
-			return $( this ).find( 'th' ).first().text() === 'partitive';
+			return $( this ).find( 'th' ).first().text() === kase;
 		} )
 
-		// get the right cell
-		.find( 'th + td + td' );
+		// get the right cell: left for singular, right for plural
+		.find( number === 'singular' ? 'th + td' : 'th + td + td' );
 
 	var variants = _.uniq( $cell.find( 'a' ).map( function () {
 		return $( this ).text();

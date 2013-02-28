@@ -19,143 +19,150 @@ html, body {
 #init {
   padding: 10em;
   text-align: center; }
+  #init table {
+    margin: 0 auto; }
   #init button {
     font-weight: bold;
     font-size: 1.5em;
-    padding: 0.5em 2em; }
+    padding: 0.5em 1em;
+    min-width: 10em; }
+    #init button small {
+      font-size: 0.7em;
+      font-weight: normal;
+      display: block; }
 
-#plural-partitive .instructions-w,
-#plural-partitive .progress,
-#plural-partitive .question,
-#plural-partitive .answer,
-#plural-partitive .correct-answer-w-w,
-#plural-partitive .continue-w {
+#inflections .instructions-w,
+#inflections .progress,
+#inflections .question,
+#inflections .answer,
+#inflections .correct-answer-w-w,
+#inflections .continue-w {
   margin-top: 1em;
   width: 50%;
   float: left; }
-#plural-partitive .question,
-#plural-partitive .correct-answer-w-w {
+#inflections .question,
+#inflections .correct-answer-w-w {
   clear: both; }
 
 @media only screen and (max-width:600px) {
   #init {
     padding: 0.5em; }
 
-  #plural-partitive .question,
-  #plural-partitive .answer,
-  #plural-partitive .correct-answer-w-w,
-  #plural-partitive .continue-w {
+  #inflections .question,
+  #inflections .answer,
+  #inflections .correct-answer-w-w,
+  #inflections .continue-w {
     width: auto;
     float: none;
     margin: 0.2em; } }
-#plural-partitive .top {
+#inflections .top {
   padding: 1em 0; }
-#plural-partitive .instructions {
+#inflections .instructions {
   padding: 0 1em;
   color: #666;
   font-style: italic; }
-#plural-partitive .progress {
+#inflections .progress {
   color: #666;
   font-style: italic; }
-#plural-partitive .word,
-#plural-partitive input {
+#inflections .word,
+#inflections input {
   font-weight: bold;
   font-size: 1.3em;
   padding: 0.3em; }
-#plural-partitive .word {
+#inflections .word {
   padding-left: 3em; }
-#plural-partitive .answer {
+#inflections .answer {
   position: relative; }
-#plural-partitive .loading {
+#inflections .loading {
   font-style: italic;
   padding: 0.5em;
   clear: both; }
-#plural-partitive .correct-answer-w {
+#inflections .correct-answer-w {
   padding: 0 1em; }
-#plural-partitive .correct-answer {
+#inflections .correct-answer {
   padding: 0.3em;
   border: 1px solid #ccc;
   margin: 0 1.5em;
   font-weight: bold; }
-#plural-partitive .result {
+#inflections .result {
   padding: 0.5em 0 1em 0; }
-#plural-partitive .correct,
-#plural-partitive .incorrect {
+#inflections .correct,
+#inflections .incorrect {
   display: inline;
   background: rgba(0, 0, 0, 0.5);
   color: #fff;
   padding: 0.3em 0.6em; }
-#plural-partitive.answer-correct .input {
+#inflections.answer-correct .input {
   background: #7f7; }
-#plural-partitive.answer-incorrect .input {
+#inflections.answer-incorrect .input {
   background: #f77; }
-#plural-partitive .continue {
+#inflections .continue {
   padding: 0.5em; }
-#plural-partitive.answered .check,
-#plural-partitive .loading,
-#plural-partitive .correct-answer-w-w,
-#plural-partitive .continue-w,
-#plural-partitive .correct,
-#plural-partitive .incorrect {
+#inflections.answered .check,
+#inflections .loading,
+#inflections .correct-answer-w-w,
+#inflections .continue-w,
+#inflections .correct,
+#inflections .incorrect {
   display: none; }
-#plural-partitive.answered:not(.retrieved-answer) .loading, #plural-partitive.answered .correct-answer-w-w, #plural-partitive.answered.retrieved-answer .continue-w {
+#inflections.answered:not(.retrieved-answer) .loading, #inflections.answered .correct-answer-w-w, #inflections.answered.retrieved-answer .continue-w {
   display: block; }
-#plural-partitive.answer-correct .correct, #plural-partitive.answer-incorrect .incorrect {
+#inflections.answer-correct .correct, #inflections.answer-incorrect .incorrect {
   display: inline; }
 
-#plural-partitive-results .main-result {
+#inflections-results .main-result {
   margin: 0.5em;
   padding: 0.3em 1em;
   background: #bdf;
   border: 1px solid #69f;
   border-radius: 1em;
   font-weight: bold; }
-#plural-partitive-results ul, #plural-partitive-results li {
+#inflections-results ul, #inflections-results li {
   list-style: none;
   margin: 0;
   padding: 0; }
-#plural-partitive-results li {
+#inflections-results li {
   padding: 0.5em 0 0.5em 1em;
   border-left: 0.5em solid transparent; }
-#plural-partitive-results h3 {
+#inflections-results h3 {
   font-size: 1.2em;
   margin: 0; }
-  #plural-partitive-results h3 span {
+  #inflections-results h3 span {
     font-weight: normal;
     font-size: 0.833em; }
-#plural-partitive-results .redo-all span {
+#inflections-results .redo-all span {
   text-shadow: -0.3em 0.2em 0 rgba(0, 0, 0, 0.5);
   padding-left: 0.3em; }
-#plural-partitive-results .user-answer span {
+#inflections-results .user-answer span {
   border: 1px solid transparent;
   padding: 0.25em 0.5em;
   border-radius: 1em; }
-  #plural-partitive-results .user-answer span::before {
+  #inflections-results .user-answer span::before {
     display: inline-block;
     font-size: 1.5em;
     vertical-align: middle; }
-#plural-partitive-results .base-form {
+#inflections-results .base-form {
   font-weight: bold; }
-#plural-partitive-results .incorrect {
+#inflections-results .incorrect {
   border-color: #c00; }
-  #plural-partitive-results .incorrect .real-answer {
+  #inflections-results .incorrect .real-answer {
     border-bottom: 2px solid #090; }
-  #plural-partitive-results .incorrect .user-answer span {
+  #inflections-results .incorrect .user-answer span {
     background: #fdd;
     border-color: #f66; }
-    #plural-partitive-results .incorrect .user-answer span::before {
+    #inflections-results .incorrect .user-answer span::before {
       color: #c00;
       content: "✗"; }
-#plural-partitive-results .correct .user-answer span {
+#inflections-results .correct .user-answer span {
   background: #dfd;
   border-color: #bfb; }
-  #plural-partitive-results .correct .user-answer span::before {
+  #inflections-results .correct .user-answer span::before {
     color: #090;
     content: "✓"; }
-#plural-partitive-results .question,
-#plural-partitive-results .user-answer {
+#inflections-results .question,
+#inflections-results .user-answer {
   display: inline-block;
   vertical-align: top; }
-#plural-partitive-results .question {
+#inflections-results .question {
   width: 10em;
   max-width: 100%; }
