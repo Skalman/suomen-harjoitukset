@@ -1,24 +1,8 @@
 {
-	"categories": {
-		"puut": {"display": "Puut"},
-		"marjat": {"display": "Marjat"},
-		"hedelmät": {"display": "Hedelmät"},
-		"vihannekset": {"display": "Vihannekset"},
-		"sienet": {"display": "Sienet"},
-		"eläimet": {"display": "Eläimet"},
-		"linnut": {"display": "Linnut"},
-		"kalat": {"display": "Kalat"},
-		"kukat": {"display": "Kukat"}
-	},
 	"words": {
-		"puut": ["honka", "jalava", "kastanja", "kataja", "koivu", "kuusi", "lehmus", "leppä", "pihlaja", "pähkinäpuu", "tammi", "vaahtera"],
-		"marjat": ["karpalo", "karviainen", "lakka", "mansikka", "mustaherukka", "mustikka", "punaherukka", "puolukka", "vadelma"],
-		"hedelmät": ["ananas", "appelsiini", "banaani", "kirsikka", "kriikuna", "luumu", "omena", "päärynä", "sitruuna"],
-		"vihannekset": ["herne", "kaali", "kurkku", "kurpitsa", "lanttu", "paprika", "papu", "persilja", "peruna", "porkkana", "punajuuri", "retiisi", "tilli", "tomaatti", "valkosipuli"],
-		"sienet": ["hapero", "herkkusieni", "kantarelli", "rousku", "tatti"],
-		"eläimet": ["hiiri", "hirvi", "ilves", "jänis", "karhu", "kettu", "metsäkauris", "orava", "poro", "rotta", "susi", "villisika", "apina", "aasi", "norsu", "hamsteri", "hevonen", "hylje", "jääkarhu", "kameli", "kirahvi", "kissa", "vuohi", "lammas", "koira", "lehmä", "leijona", "valas", "sammakko", "kyykäärme", "rantakäärme", "sisilisko", "krokotiili"],
-		"linnut": ["ankka", "haikara", "hanhi", "harakka", "haukka", "joutsen", "kalkkuna", "kana", "kotka", "kottarainen", "kukko", "kurki", "kyyhkynen", "lokki", "papukaija", "punatulkku", "pääskynen", "pöllö", "satakieli", "sorsa", "strutsi", "tiainen", "tikka", "varis", "varpunen"],
-		"kalat": ["ahven", "ankerias", "hauki", "kampela", "karppi", "kilohaili", "kuha", "lahna", "lohi", "siika", "silli"],
-		"kukat": ["asteri", "auringonkukka", "hajuherne", "kielo", "narsissi", "neilikka", "orvokki", "pioni", "päivänkakkara", "ruiskukka", "ruusu", "sinivuokko", "tulppaani"]
+		"adjektiivit": ["iso", "viisas", "komea", "liukas", "nuori", "hauska", "musta", "valkoinen", "vaikea", "pitkä", "uusi", "kallis", "maukas", "puhdas", "lyhyt", "harmaa", "mukava", "halpa", "kärsivällinen", "väärä", "hyvä"],
+
+		"substantiivit": ["kauppa", "tyttö", "poika", "tie", "nainen", "matka", "katto", "muna", "kysymys", "päivä", "lehti", "liike", "peruna", "käsi", "vastaus", "kenkä", "naapuri", "asunto", "asiakas", "numero", "hoitaja", "herra", "rouva", "tilanne"]
 	}
 }
+
