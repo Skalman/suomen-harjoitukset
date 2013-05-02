@@ -1,139 +1,68 @@
 <!DOCTYPE html>
 <html lang="fi">
-	<head>
-		<meta charset="utf-8" />
-		<title>Suomenkielen harjoitukset: Monikon partitiivi</title>
+<meta charset="utf-8" />
 
-		<script src="js/lib/jquery.min.js"></script>
-		<script src="js/lib/q.min.js"></script>
-		<script src="js/lib/underscore-min.js"></script>
+<!-- META DATA -->
+<title>Suomenkielen harjoitukset: Monikon partitiivi</title>
 
-		<script src="js/jquery.promise.events.js"></script>
+<script src="js/lib/q.min.js"></script>
+<script src="js/lib/underscore-min.js"></script>
+<script src="js/lib/jquery.min.js"></script>
+<script src="js/lib/backbone-min.js"></script>
+<!-- <script src="js/lib/exercises.min.js"></script> -->
+<script src="../exercises/exercises.js"></script>
 
-		<script src="js/utils.js"></script>
-		<script src="js/mediawiki.js"></script>
-		<script src="js/screen.js"></script>
-		<script src="js/inflections.js"></script>
+<script src="js/app.js"></script>
 
-		<!-- optimize for mobile -->
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="css/index.css" />
-	</head>
-	<body>
-		<div id="init" class="screen active">
-			<!--[if lt IE 9]>
-				<p>This site might not work as expected in Internet Explorer 8 and below.</p>
-			<![endif]-->
-
-			<p>
-				Aloita harjoituksia:
-			</p>
-
-			<table>
-				<tr>
-					<td><button class="start" data-form="singular-partitive">sanaa <small>yksikön partitiivin</small></button></td>
-					<td><button class="start" data-form="plural-partitive">sanoja <small>monikon partitiivin</small></button></td>
-				</tr>
-				<tr>
-					<td><button class="start" data-form="singular-illative">sanaan <small>yksikön illatiivin</small></button></td>
-					<td><button class="start" data-form="plural-illative">sanoihin <small>monikon illatiivin</small></button></td>
-				</tr>
-			</table>
-		</div>
-
-		<div id="inflections" class="screen">
-			<form>
-				<div>
-					<div class="instructions-w">
-						<div class="instructions"></div>
-					</div>
-					<div class="progress">
-						<span class="progress-current"></span> / <span class="progress-total"></span>
-					</div>
-				</div>
-				<div class="input">
-					<div class="question">
-						<div class="word"></div>
-					</div>
-					<div class="answer">
-						<input />
-						<div class="result">
-							<button class="check" type="submit">Tarkista</button>
-							<div class="correct">✓ Oikein</div>
-							<div class="incorrect">✗ Väärin</div>
-						</div>
-					</div>
-					<div class="clearfix"></div>
-				</div>
+<!-- optimize for mobile -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="css/index.css" />
 
 
-				<div class="loading">Ladataan...</div>
+<!-- DISPLAYED CONTENT -->
+<div id="init" class="screen active">
+	<!--[if lt IE 9]>
+		<p>This site might not work as expected in Internet Explorer 8 and below.</p>
+	<![endif]-->
 
-				<div class="correct-answer-w-w">
-					<div class="correct-answer-w">
-						Wikisanakirjasta: <span class="correct-answer"></span>
-					</div>
-				</div>
+	<table>
+		<thead>
+			<tr>
+				<td>
+					Mitä haluat harjoitella?
+				</td>
+				<th>Yksikkö</th>
+				<th>Monikko</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr data-case="nominative">
+				<th>Nominatiivi</th>
+				<td><button disabled>kukka <small>Kuka? Mikä?</small></button></td>
+				<td><button>kukat <small>Ketkä? Mitkä?</small></button></td>
+			</tr>
+			<tr data-case="partitive">
+				<th>Partitiivi</th>
+				<td><button>kukkaa <small>Ketä? Mitä?</small></button></td>
+				<td><button>kukkoja <small>Keitä? Mitä?</small></button></td>
+			</tr>
+			<tr data-case="genitive">
+				<th>Genetiivi</th>
+				<td><button>kukan <small>Kenen? Minkä?</small></button></td>
+				<td><button>kukkien <small>Keiden? Minkä?</small></button></td>
+			</tr>
+			<tr data-case="illative">
+				<th>Illatiivi</th>
+				<td><button>kukkaan <small>Keneen? Mihin?</small></button></td>
+				<td><button>kukkoihin <small>Keihin? Mihin?</small></button></td>
+			</tr>
+			<tr data-case="inessive">
+				<th>Inessiivi</th>
+				<td><button>kukassa <small>Kenessä? Missä?</small></button></td>
+				<td><button>kukoissa <small>Keissä? Missä?</small></button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 
-				<div class="continue-w">
-					<button class="continue" type="submit">Jatka ❯</button>
-				</div>
-				
-
-			</form>
-		</div>
-
-		<div id="inflections-results" class="screen"></div>
-
-<script id="tpl-inflections-results" type="text/tpl-underscore" data-variable="stats">
-<% var incorrect_count = stats.questions.length - stats.correct_count; %>
-<p hidden class="main-result">
-	<%- stats.correct_count + '/' + stats.questions.length %>
-	<%- stats.correct_count === 1 ? 'vastaus' : 'vastausta' %> oikein
-</p>
-
-<p>
-	<% if ( incorrect_count ) {
-		%><button class="redo-incorrect">↻
-			<%- incorrect_count === 1 ?
-				'Tee väärin mennyt harjoitus uudestaan' :
-				'Tee väärin menneet harjoitukset uudestaan' %>
-		</button><%
-	} %>
-	<button class="quit">× Lopeta</button>
-	<button class="redo-all"><span>↻</span> Tee kaikki uudestaan</button>
-</p>
-
-<ul>
-	<li>
-		<div class="question">
-			<h3>
-				Kysymykset
-				<span class="total">(<%= stats.questions.length %>)</span>
-			</h3>
-		</div>
-		<div class="user-answer">
-			<h3>
-				Vastauksisi
-				<span class="total-correct">(<%= stats.correct_count %> oikein)</span>
-			</h3>
-		</div>
-	</li>
-	<% _.each( stats.questions, function ( question ) {
-		%>
-			<li class="<%= question.is_correct ? 'correct' : 'incorrect' %>">
-				<div class="question">
-					<span class="base-form"><%- question.word %></span> <br />
-					<span class="real-answer"><%- question.answer.join( ', ' ) %></span>
-				</div>
-				<div class="user-answer">
-					<span><%- question.user_answer %></span>
-				</div>
-			</li>
-		<%
-	} ) %>
-</ul>
-</script>
-
-	</body>
-</html>
+<div id="exercises" class="screen"></div>

@@ -4,7 +4,7 @@
 	html, body {
 		margin: 0;
 		padding: 0;
-		font: 100%/1.5 Arial, sans-serif;
+		font: 96%/1.5 Arial, sans-serif;
 	}
 
 	[hidden] {
@@ -26,18 +26,24 @@
 	}
 
 	#init {
-		padding: 10em;
+		padding: 5em;
 		text-align: center;
 
 		table {
 			margin: 0 auto;
+
+			th:first-child,
+			td:first-child {
+				text-align: right;
+				padding-right: 0.5em;
+			}
 		}
 
 		button {
 			font-weight: bold;
-			font-size: 1.5em;
+			font-size: 1.3em;
 			padding: 0.5em 1em;
-			min-width: 10em;
+			min-width: 8em;
 
 			small {
 				font-size: 0.7em;
@@ -46,11 +52,14 @@
 			}
 		}
 	}
-		
-	#inflections {
+
+
+//
+// screen		
+	.exercises-practice {
 		.instructions-w,
 		.progress,
-		.question,
+		.question-w,
 		.answer,
 		.correct-answer-w-w,
 		.continue-w {
@@ -59,7 +68,7 @@
 			float: left;
 		}
 
-		.question,
+		.question-w,
 		.correct-answer-w-w {
 			clear: both;
 		}
@@ -68,10 +77,19 @@
 	@media only screen and (max-width:600px) {
 		#init {
 			padding: 0.5em;
+
+			th {
+				font-size: 0.8em;
+			}
+
+			button {
+				font-size: 1em;
+				min-width: 7em;
+			}
 		}
 
-		#inflections {
-			.question,
+		.exercises-practice {
+			.question-w,
 			.answer,
 			.correct-answer-w-w,
 			.continue-w {
@@ -82,10 +100,28 @@
 		}
 	}
 
+	@media only screen and (max-width:400px) {
+		#init {
+			table, thead, tbody, tr, th {
+				display: block;
+			}
+			td {
+				display: inline;
+			}
+			thead th {
+				display: none;
+			}
+			tbody th:first-child {
+				text-align: center;
+				padding: 0.5em 0 0 0;
+			}
+		}
+	}
+
 
 //
-// inflections
-#inflections {
+// practice
+.exercises-practice {
 
 	.top {
 		padding: 1em 0;
@@ -102,13 +138,13 @@
 		font-style: italic;
 	}
 
-	.word,
+	.question,
 	input {
 		font-weight: bold;
 		font-size: 1.3em;
 		padding: 0.3em;
 	}
-	.word {
+	.question {
 		padding-left: 3em;
 	}
 	.answer {
@@ -138,6 +174,7 @@
 	.correct,
 	.incorrect {
 		display: inline;
+		background: #333;
 		background: rgba(0, 0, 0, 0.5);
 		color: #fff;
 		padding: 0.3em 0.6em;
@@ -162,11 +199,25 @@
 	.incorrect {
 		display: none;
 	}
-	&.answered:not(.retrieved-answer) .loading,
 	&.answered .correct-answer-w-w,
 	&.answered.retrieved-answer .continue-w {
 		display: block;
 	}
+
+
+	// IE8 does not support :not()
+	// Instead of: &.answered:not(.retrieved-answer) .loading { display:none; }
+	.loading,
+	&.answered.retrieved-answer .loading {
+		display: none;
+	}
+
+&.answered .loading {
+		display: block;
+	}
+
+
+
 	&.answer-correct .correct,
 	&.answer-incorrect .incorrect {
 		display: inline;
@@ -175,9 +226,9 @@
 
 
 //
-// inflections-results
+// exercises-result
 
-#inflections-results {
+.exercises-result {
 	.main-result {
 		margin: 0.5em;
 		padding: 0.3em 1em;

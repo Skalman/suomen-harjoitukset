@@ -2,7 +2,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  font: 100%/1.5 Arial, sans-serif; }
+  font: 96%/1.5 Arial, sans-serif; }
 
 [hidden] {
   display: none; }
@@ -17,152 +17,176 @@ html, body {
   display: block; }
 
 #init {
-  padding: 10em;
+  padding: 5em;
   text-align: center; }
   #init table {
     margin: 0 auto; }
+    #init table th:first-child,
+    #init table td:first-child {
+      text-align: right;
+      padding-right: 0.5em; }
   #init button {
     font-weight: bold;
-    font-size: 1.5em;
+    font-size: 1.3em;
     padding: 0.5em 1em;
-    min-width: 10em; }
+    min-width: 8em; }
     #init button small {
       font-size: 0.7em;
       font-weight: normal;
       display: block; }
 
-#inflections .instructions-w,
-#inflections .progress,
-#inflections .question,
-#inflections .answer,
-#inflections .correct-answer-w-w,
-#inflections .continue-w {
+.exercises-practice .instructions-w,
+.exercises-practice .progress,
+.exercises-practice .question-w,
+.exercises-practice .answer,
+.exercises-practice .correct-answer-w-w,
+.exercises-practice .continue-w {
   margin-top: 1em;
   width: 50%;
   float: left; }
-#inflections .question,
-#inflections .correct-answer-w-w {
+.exercises-practice .question-w,
+.exercises-practice .correct-answer-w-w {
   clear: both; }
 
 @media only screen and (max-width:600px) {
   #init {
     padding: 0.5em; }
+    #init th {
+      font-size: 0.8em; }
+    #init button {
+      font-size: 1em;
+      min-width: 7em; }
 
-  #inflections .question,
-  #inflections .answer,
-  #inflections .correct-answer-w-w,
-  #inflections .continue-w {
+  .exercises-practice .question-w,
+  .exercises-practice .answer,
+  .exercises-practice .correct-answer-w-w,
+  .exercises-practice .continue-w {
     width: auto;
     float: none;
     margin: 0.2em; } }
-#inflections .top {
+@media only screen and (max-width:400px) {
+  #init table, #init thead, #init tbody, #init tr, #init th {
+    display: block; }
+  #init td {
+    display: inline; }
+  #init thead th {
+    display: none; }
+  #init tbody th:first-child {
+    text-align: center;
+    padding: 0.5em 0 0 0; } }
+.exercises-practice .top {
   padding: 1em 0; }
-#inflections .instructions {
+.exercises-practice .instructions {
   padding: 0 1em;
   color: #666;
   font-style: italic; }
-#inflections .progress {
+.exercises-practice .progress {
   color: #666;
   font-style: italic; }
-#inflections .word,
-#inflections input {
+.exercises-practice .question,
+.exercises-practice input {
   font-weight: bold;
   font-size: 1.3em;
   padding: 0.3em; }
-#inflections .word {
+.exercises-practice .question {
   padding-left: 3em; }
-#inflections .answer {
+.exercises-practice .answer {
   position: relative; }
-#inflections .loading {
+.exercises-practice .loading {
   font-style: italic;
   padding: 0.5em;
   clear: both; }
-#inflections .correct-answer-w {
+.exercises-practice .correct-answer-w {
   padding: 0 1em; }
-#inflections .correct-answer {
+.exercises-practice .correct-answer {
   padding: 0.3em;
   border: 1px solid #ccc;
   margin: 0 1.5em;
   font-weight: bold; }
-#inflections .result {
+.exercises-practice .result {
   padding: 0.5em 0 1em 0; }
-#inflections .correct,
-#inflections .incorrect {
+.exercises-practice .correct,
+.exercises-practice .incorrect {
   display: inline;
+  background: #333;
   background: rgba(0, 0, 0, 0.5);
   color: #fff;
   padding: 0.3em 0.6em; }
-#inflections.answer-correct .input {
+.exercises-practice.answer-correct .input {
   background: #7f7; }
-#inflections.answer-incorrect .input {
+.exercises-practice.answer-incorrect .input {
   background: #f77; }
-#inflections .continue {
+.exercises-practice .continue {
   padding: 0.5em; }
-#inflections.answered .check,
-#inflections .loading,
-#inflections .correct-answer-w-w,
-#inflections .continue-w,
-#inflections .correct,
-#inflections .incorrect {
+.exercises-practice.answered .check,
+.exercises-practice .loading,
+.exercises-practice .correct-answer-w-w,
+.exercises-practice .continue-w,
+.exercises-practice .correct,
+.exercises-practice .incorrect {
   display: none; }
-#inflections.answered:not(.retrieved-answer) .loading, #inflections.answered .correct-answer-w-w, #inflections.answered.retrieved-answer .continue-w {
+.exercises-practice.answered .correct-answer-w-w, .exercises-practice.answered.retrieved-answer .continue-w {
   display: block; }
-#inflections.answer-correct .correct, #inflections.answer-incorrect .incorrect {
+.exercises-practice .loading, .exercises-practice.answered.retrieved-answer .loading {
+  display: none; }
+.exercises-practice.answered .loading {
+  display: block; }
+.exercises-practice.answer-correct .correct, .exercises-practice.answer-incorrect .incorrect {
   display: inline; }
 
-#inflections-results .main-result {
+.exercises-result .main-result {
   margin: 0.5em;
   padding: 0.3em 1em;
   background: #bdf;
   border: 1px solid #69f;
   border-radius: 1em;
   font-weight: bold; }
-#inflections-results ul, #inflections-results li {
+.exercises-result ul, .exercises-result li {
   list-style: none;
   margin: 0;
   padding: 0; }
-#inflections-results li {
+.exercises-result li {
   padding: 0.5em 0 0.5em 1em;
   border-left: 0.5em solid transparent; }
-#inflections-results h3 {
+.exercises-result h3 {
   font-size: 1.2em;
   margin: 0; }
-  #inflections-results h3 span {
+  .exercises-result h3 span {
     font-weight: normal;
     font-size: 0.833em; }
-#inflections-results .redo-all span {
+.exercises-result .redo-all span {
   text-shadow: -0.3em 0.2em 0 rgba(0, 0, 0, 0.5);
   padding-left: 0.3em; }
-#inflections-results .user-answer span {
+.exercises-result .user-answer span {
   border: 1px solid transparent;
   padding: 0.25em 0.5em;
   border-radius: 1em; }
-  #inflections-results .user-answer span::before {
+  .exercises-result .user-answer span::before {
     display: inline-block;
     font-size: 1.5em;
     vertical-align: middle; }
-#inflections-results .base-form {
+.exercises-result .base-form {
   font-weight: bold; }
-#inflections-results .incorrect {
+.exercises-result .incorrect {
   border-color: #c00; }
-  #inflections-results .incorrect .real-answer {
+  .exercises-result .incorrect .real-answer {
     border-bottom: 2px solid #090; }
-  #inflections-results .incorrect .user-answer span {
+  .exercises-result .incorrect .user-answer span {
     background: #fdd;
     border-color: #f66; }
-    #inflections-results .incorrect .user-answer span::before {
+    .exercises-result .incorrect .user-answer span::before {
       color: #c00;
       content: "✗"; }
-#inflections-results .correct .user-answer span {
+.exercises-result .correct .user-answer span {
   background: #dfd;
   border-color: #bfb; }
-  #inflections-results .correct .user-answer span::before {
+  .exercises-result .correct .user-answer span::before {
     color: #090;
     content: "✓"; }
-#inflections-results .question,
-#inflections-results .user-answer {
+.exercises-result .question,
+.exercises-result .user-answer {
   display: inline-block;
   vertical-align: top; }
-#inflections-results .question {
+.exercises-result .question {
   width: 10em;
   max-width: 100%; }
