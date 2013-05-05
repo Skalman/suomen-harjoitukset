@@ -24,44 +24,119 @@
 		<p>This site might not work as expected in Internet Explorer 8 and below.</p>
 	<![endif]-->
 
-	<table>
-		<thead>
-			<tr>
-				<td>
-					Mitä haluat harjoitella?
-				</td>
-				<th>Yksikkö</th>
-				<th>Monikko</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr data-case="nominative">
-				<th>Nominatiivi</th>
-				<td><button disabled>kukka <small>Kuka? Mikä?</small></button></td>
-				<td><button>kukat <small>Ketkä? Mitkä?</small></button></td>
-			</tr>
-			<tr data-case="partitive">
-				<th>Partitiivi</th>
-				<td><button>kukkaa <small>Ketä? Mitä?</small></button></td>
-				<td><button>kukkia <small>Keitä? Mitä?</small></button></td>
-			</tr>
-			<tr data-case="genitive">
-				<th>Genetiivi</th>
-				<td><button>kukan <small>Kenen? Minkä?</small></button></td>
-				<td><button>kukkien <small>Keiden? Minkä?</small></button></td>
-			</tr>
-			<tr data-case="illative">
-				<th>Illatiivi</th>
-				<td><button>kukkaan <small>Keneen? Mihin?</small></button></td>
-				<td><button>kukkiin <small>Keihin? Mihin?</small></button></td>
-			</tr>
-			<tr data-case="inessive">
-				<th>Inessiivi</th>
-				<td><button>kukassa <small>Kenessä? Missä?</small></button></td>
-				<td><button>kukissa <small>Keissä? Missä?</small></button></td>
-			</tr>
-		</tbody>
-	</table>
+
 </div>
 
 <div id="exercises" class="screen"></div>
+
+<script type="text/tpl" id="tpl-init">
+<%
+	var numbers = [
+		{
+			id: 'singular',
+			text: 'Yksikkö',
+			text_gen: 'yksikön'
+		},
+		{
+			id: 'plural',
+			text: 'Monikko',
+			text_gen: 'monikon'
+		}
+	];
+	var cases = [
+		{
+			id: 'nominative',
+			text: 'Nominatiivi',
+			num: [{
+					disabled: true,
+					example: 'kukka',
+					question: 'Kuka? Mikä?'
+				}, {
+					example: 'kukat',
+					question: 'Ketkä? Mitkä?'
+			}]
+		},
+		{
+			id: 'partitive',
+			text: 'Partitiivi',
+			num: [{
+					example: 'kukkaa',
+					question: 'Ketä? Mitä?'
+				}, {
+					example: 'kukkia',
+					question: 'Keitä? Mitä?'
+			}]
+		},
+		{
+			id: 'genitive',
+			text: 'Genetiivi',
+			num: [{
+					example: 'kukan',
+					question: 'Kenen? Minkä?'
+				}, {
+					example: 'kukkien',
+					question: 'Keiden? Minkä?'
+			}]
+		},
+		{
+			id: 'illative',
+			text: 'Illatiivi',
+			num: [{
+					example: 'kukkaan',
+					question: 'Keneen? Mihin?'
+				}, {
+					example: 'kukkiin',
+					question: 'Keihin? Mihin?'
+			}]
+		},
+		{
+			id: 'inessive',
+			text: 'Inessiivi',
+			num: [{
+					example: 'kukassa',
+					question: 'Kenessä? Missä?'
+				}, {
+					example: 'kukissa',
+					question: 'Keissä? Missä?'
+			}]
+		}
+	];
+%>
+<table>
+	<thead>
+		<tr>
+			<td>
+				Mitä haluat harjoitella?
+			</td>
+			<th><%- numbers[0].text %></th>
+			<th><%- numbers[1].text %></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% _.each( cases, function ( c ) { %>
+			<tr>
+				<th><%- c.text %></th>
+				<% _.each( c.num, function ( cn, i ) {
+					var n = numbers[i]; %>
+					<td><button<%= cn.disabled ? ' disabled' : '' %>
+						data-id="<%-n.id%>-<%-c.id%>"
+						data-text="<%-n.text_gen%> <%-c.text.toLowerCase()%> (<%-cn.question.toLowerCase()%>)">
+						<%- cn.example %>
+						<small><%- cn.question %></small>
+					</button></td>
+				<% }) %>
+			</tr>
+		<% }) %>
+	</tbody>
+</table>
+</script>
+<script>
+// Render immediately
+$( '#init' ).append(
+	_.template(
+		$('#tpl-init').text(),
+		null,
+		{ variable: 'env' }
+	)
+);
+</script>

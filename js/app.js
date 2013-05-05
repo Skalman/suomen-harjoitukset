@@ -1,13 +1,15 @@
 'use strict';
 
 $( function () {
-	var forms = populate_inflection_forms();
 
 	// The overall view
 	// ----------------
 	$( '#init button' ).on( 'click', function () {
 		var $this = $(this);
-		var form = $this.data( 'form' );
+		var form = {
+			id: $this.data( 'id' ),
+			text: $this.data( 'text' )
+		};
 		console.log( 'Start', form.id );
 
 		switch_screen( 'exercises' );
@@ -156,27 +158,6 @@ $( function () {
 			} else {
 				return data.parse.text['*'];
 			}
-		});
-	}
-
-	// Add form information to each start button
-	// -----------------------------------------
-	function populate_inflection_forms() {
-		var forms = {};
-		var number_id = ['singular', 'plural'];
-		var number_text = ['yksikön', 'monikon'];
-		$( '#init tbody tr' ).each(function () {
-			var $tr = $( this );
-			var case_id = $tr.data( 'case' );
-			var case_text = $tr.find( 'th' ).text().toLowerCase();
-			$tr.find( 'button' ).each(function (index) {
-				var explanation = $( this ).find( 'small' ).text().toLowerCase();
-				var data = {
-					id: number_id[index] + '-' + case_id,
-					text: number_text[index] + ' ' + case_text + ' (' + explanation + ')',
-				};
-				$( this ).data( 'form', data );
-			});
 		});
 	}
 
