@@ -117,7 +117,7 @@ $(function () {
       // find the <tr> containing partitive
       .find('table.inflection-table tr')
       .filter(function () {
-        return $(this).find('th').first().text() === kase;
+        return $.trim($(this).find('th').first().text()) === kase;
       })
 
       // get the right cell: left for singular, right for plural
